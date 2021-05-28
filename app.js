@@ -30,6 +30,6 @@ app.use("/api/arrives", arriveRoute);
 app.use("/api/internals", internalRoute);
 app.use("/api/approves", approveRoute);
 
-app.listen(process.env.APP_PORT, () => {
+app.listen(process.env.PORT || process.env.APP_PORT, () => {
   console.log("Server up and running");
 });
