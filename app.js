@@ -29,11 +29,11 @@ app.use("/api/dispatches", dispatchesRoute);
 app.use("/api/arrives", arriveRoute);
 app.use("/api/internals", internalRoute);
 app.use("/api/approves", approveRoute);
-app.get("/download", function(req,res) {
+app.get("/download", function (req, res) {
   const fileDirectory = process.cwd();
   const file = `${fileDirectory}/files/dispatches/BCTD2-HoangPhuocAn.docx`;
   res.download(file);
-})
+});
 
 app.listen(process.env.PORT || process.env.APP_PORT, () => {
   console.log("Server up and running");
