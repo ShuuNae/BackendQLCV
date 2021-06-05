@@ -29,10 +29,11 @@ app.use("/api/dispatches", dispatchesRoute);
 app.use("/api/arrives", arriveRoute);
 app.use("/api/internals", internalRoute);
 app.use("/api/approves", approveRoute);
-app.get("/:fileName/download", function (req, res) {
+app.get("/:fileName&:type/download", function (req, res) {
   const fileDirectory = process.cwd();
   const fileName = req.params.fileName;
-  const file = `${fileDirectory}/files/dispatches/${fileName}`;
+  const type = req.params.type;
+  const file = `${fileDirectory}/files/dispatches/${fileName}.${type}`;
   res.download(file);
 });
 
