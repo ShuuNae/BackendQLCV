@@ -3,7 +3,7 @@ const pool = require("../../config/database");
 module.exports = {
   create: (data, callBack) => {
     pool.query(
-      "insert into congvandi(tenvb, sohieu, kyhieu, ngayky, ngaydi, maLVB, mucdokhan, mucdomat, maND, noidung, tailieu, duongdi, tennv, cqnhan, tinhtrangduyet, maBM) value(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+      "insert into congvandi(tenvb, sohieu, kyhieu, ngayky, ngaydi, maLVB, mucdokhan, mucdomat, maND, noidung, tailieu, tentailieu, duongdi, tennv, cqnhan, tinhtrangduyet, maBM) value(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
       [
         data.tenvb,
         data.sohieu,
@@ -16,6 +16,7 @@ module.exports = {
         data.maND,
         data.noidung,
         data.tailieu,
+        data.tentailieu,
         data.duongdi,
         data.tennv,
         data.cqnhan,
@@ -32,7 +33,7 @@ module.exports = {
   },
   getDispatches: (callBack) => {
     pool.query(
-      "select maVB, tenvb, sohieu, kyhieu, ngayky, ngaydi, maLVB, mucdokhan, mucdomat, maND, noidung, tailieu, duongdi, tennv, cqnhan, tinhtrangduyet, maBM from congvandi ",
+      "select maVB, tenvb, sohieu, kyhieu, ngayky, ngaydi, maLVB, mucdokhan, mucdomat, maND, noidung, tailieu, tentailieu, duongdi, tennv, cqnhan, tinhtrangduyet, maBM from congvandi ",
       [],
       (error, results, fields) => {
         if (error) {
@@ -44,7 +45,7 @@ module.exports = {
   },
   getDispatchByID: (id, callBack) => {
     pool.query(
-      "select maVB, tenvb, sohieu, kyhieu, ngayky, ngaydi, d.maLVB, l.tenlvb, mucdokhan, mucdomat, d.maND, n.hoten, noidung, tailieu, duongdi, tennv, cqnhan, tinhtrangduyet, d.maBM, b.tenBM from congvandi d inner join nguoidung n on d.maND = n.maND inner join loaivanban l on d.maLVB = l.maLVB inner join bieumau b on d.maBM = b.maBM where maVB =? ",
+      "select maVB, tenvb, sohieu, kyhieu, ngayky, ngaydi, d.maLVB, l.tenlvb, mucdokhan, mucdomat, d.maND, n.hoten, noidung, tailieu, tentailieu, duongdi, tennv, cqnhan, tinhtrangduyet, d.maBM, b.tenBM from congvandi d inner join nguoidung n on d.maND = n.maND inner join loaivanban l on d.maLVB = l.maLVB inner join bieumau b on d.maBM = b.maBM where maVB =? ",
       [id],
       (error, results, fields) => {
         if (error) {

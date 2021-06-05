@@ -29,9 +29,10 @@ app.use("/api/dispatches", dispatchesRoute);
 app.use("/api/arrives", arriveRoute);
 app.use("/api/internals", internalRoute);
 app.use("/api/approves", approveRoute);
-app.get("/download", function (req, res) {
+app.get("/:fileName/download", function (req, res) {
   const fileDirectory = process.cwd();
-  const file = `${fileDirectory}/files/dispatches/BCTD2-HoangPhuocAn.docx`;
+  const fileName = req.params.fileName;
+  const file = `${fileDirectory}/files/dispatches/${fileName}`;
   res.download(file);
 });
 
