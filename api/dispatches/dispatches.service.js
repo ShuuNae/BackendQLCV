@@ -57,7 +57,7 @@ module.exports = {
   },
   updateDispatch: (data, callBack) => {
     pool.query(
-      "update congvandi set tenvb=?, sohieu=?, kyhieu=?, ngayky=?, ngaydi=?, maLVB=?, mucdokhan=?, mucdomat=?, maND=?, noidung=?, tailieu=?, duongdi=?, tennv=?, cqnhan=?, tinhtrangduyet=?, maBM=? where maVB=? ",
+      "update congvandi set tenvb=?, sohieu=?, kyhieu=?, ngayky=?, ngaydi=?, maLVB=?, mucdokhan=?, mucdomat=?, maND=?, noidung=?, tailieu=?, tentailieu=?, duongdi=?, tennv=?, cqnhan=?, tinhtrangduyet=?, maBM=? where maVB=? ",
       [
         data.tenvb,
         data.sohieu,
@@ -70,6 +70,7 @@ module.exports = {
         data.maND,
         data.noidung,
         data.tailieu,
+        data.tentailieu,
         data.duongdi,
         data.tennv,
         data.cqnhan,

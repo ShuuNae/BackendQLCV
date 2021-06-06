@@ -5,22 +5,29 @@ const {
   updateDispatch,
   deleteDispatch,
 } = require("./dispatches.service");
+const aws = require("aws-sdk");
+
+aws.config.update({
+  accessKeyId: process.env.AWS_ACCESS_KEY,
+  secretAccessKey: process.env.AWS_SECRET_KEY,
+  region: process.env.REGION,
+});
 
 module.exports = {
   createDispatch: (req, res) => {
     console.log(req);
     const body = req.body;
-    const file = req.files.file;
-    const fileDirectory = process.cwd();
-    if (file) {
-      file.mv(`${fileDirectory}/files/dispatches/${file.name}`, (err) => {
-        if (err) {
-          console.error(err);
-          return res.status(500).send(err);
-        }
-      });
-      body.tailieu = `/files/dispatches/${file.name}`;
-    }
+    // const file = req.files.file;
+    // const fileDirectory = process.cwd();
+    // if (file) {
+    //   file.mv(`${fileDirectory}/files/dispatches/${file.name}`, (err) => {
+    //     if (err) {
+    //       console.error(err);
+    //       return res.status(500).send(err);
+    //     }
+    //   });
+    //   body.tailieu = `/files/dispatches/${file.name}`;
+    // }
     create(body, (err, results) => {
       if (err) {
         console.log("error create dispatch: " + err);
@@ -80,17 +87,17 @@ module.exports = {
   },
   updateDispatch: (req, res) => {
     const body = req.body;
-    const file = req.files.file;
-    const fileDirectory = process.cwd();
-    if (file) {
-      file.mv(`${fileDirectory}/files/dispatches/${file.name}`, (err) => {
-        if (err) {
-          console.error(err);
-          return res.status(500).send(err);
-        }
-      });
-      body.tailieu = `/files/dispatches/${file.name}`;
-    }
+    // const file = req.files.file;
+    // const fileDirectory = process.cwd();
+    // if (file) {
+    //   file.mv(`${fileDirectory}/files/dispatches/${file.name}`, (err) => {
+    //     if (err) {
+    //       console.error(err);
+    //       return res.status(500).send(err);
+    //     }
+    //   });
+    //   body.tailieu = `/files/dispatches/${file.name}`;
+    // }
     updateDispatch(body, (err, results) => {
       if (err) {
         console.log("error update dispatch: " + err);
@@ -131,6 +138,29 @@ module.exports = {
         success: 1,
         message: "Dispatch deleted successfully",
       });
+    });
+  },
+  getSignedURL: (req, res) => {
+    const s3 = new aws.S3();
+    const fileName = req.params.fileName;
+    const fileType = req.params.fileType;
+    const filePath = `dispatch/${fileName}`;
+    const params = {
+      Bucket: process.env.AWS_BUCKET,
+      Key: filePath,
+      Expires: 60,
+      ContentType: fileType,
+      // ACL: "public-read",
+    };
+
+    s3.getSignedUrl("putObject", params, (err, data) => {
+      if (err) {
+        console.log(`getSignedUrl error: `, err);
+        return res.end();
+      } else {
+        res.write(JSON.stringify(data));
+        res.end();
+      }
     });
   },
 };
