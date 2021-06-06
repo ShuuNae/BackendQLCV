@@ -142,8 +142,8 @@ module.exports = {
   },
   getSignedURL: (req, res) => {
     const s3 = new aws.S3();
-    const fileName = req.params.fileName;
-    const fileType = req.params.fileType;
+    const fileName = req.query.fileName;
+    const fileType = req.query.fileType;
     const filePath = `dispatch/${fileName}`;
     const params = {
       Bucket: process.env.AWS_BUCKET,
