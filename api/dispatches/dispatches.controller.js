@@ -163,4 +163,25 @@ module.exports = {
       }
     });
   },
+
+  getDownloadUrl: (req, res) => {
+    const s3 = new aws.S3();
+    const fileName = req.query.fileName;
+    const filePath = `dispatch/${fileName}`;
+    const params = {
+      Bucket: process.env.AWS_BUCKET,
+      Key: filePath,
+      Expires: 60,
+    };
+
+    s3.getSignedUrl("getObject", params, (err, data) => {
+      if (err) {
+        console.log(`getDownloadSignedUrl error: `, err);
+        return res.end();
+      } else {
+        res.write(JSON.stringify(data));
+        res.end();
+      }
+    });
+  },
 };
