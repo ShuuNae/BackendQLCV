@@ -150,7 +150,7 @@ module.exports = {
       Key: filePath,
       Expires: 60,
       ContentType: fileType,
-      ACL: "public-read",
+      // ACL: "public-read",
     };
 
     s3.getSignedUrl("putObject", params, (err, data) => {
