@@ -150,7 +150,7 @@ module.exports = {
       Key: filePath,
       Expires: 60,
       ContentType: fileType,
-      ContentEncoding: "base64",
+      // ContentEncoding: "base64",
       // ACL: "public-read",
     };
 
