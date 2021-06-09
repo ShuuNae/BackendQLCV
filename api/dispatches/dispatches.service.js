@@ -45,7 +45,7 @@ module.exports = {
   },
   getDispatchByID: (id, callBack) => {
     pool.query(
-      "select maVB, tenvb, sohieu, kyhieu, ngayky, ngaydi, d.maLVB, l.tenlvb, mucdokhan, mucdomat, d.maND, n.hoten, noidung, tailieu, tentailieu, duongdi, tennv, cqnhan, tinhtrangduyet, d.maBM, b.tenBM from congvandi d inner join nguoidung n on d.maND = n.maND inner join loaivanban l on d.maLVB = l.maLVB inner join bieumau b on d.maBM = b.maBM where maVB =? ",
+      "select maVB, tenvb, sohieu, kyhieu, ngayky, ngaydi, d.maLVB, l.tenlvb, mucdokhan, mucdomat, d.maND, n.hoten, n.maPB, noidung, tailieu, tentailieu, duongdi, tennv, cqnhan, tinhtrangduyet, d.maBM, b.tenBM from congvandi d inner join nguoidung n on d.maND = n.maND inner join loaivanban l on d.maLVB = l.maLVB inner join bieumau b on d.maBM = b.maBM where maVB =? ",
       [id],
       (error, results, fields) => {
         if (error) {

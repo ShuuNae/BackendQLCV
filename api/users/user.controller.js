@@ -141,7 +141,7 @@ module.exports = {
           success: 1,
           message: "login successfully",
           token: jsonwebtoken,
-          data: { userID: results.maND, isAdmin: results.isAdmin },
+          data: { userID: results.maND, isAdmin: results.isAdmin, userName: results.taikhoan },
         });
       } else {
         return res.status(400).json({

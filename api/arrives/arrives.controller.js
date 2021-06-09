@@ -5,6 +5,13 @@ const {
   updateArrive,
   deleteArrive,
 } = require("./arrives.service");
+const aws = require("aws-sdk");
+
+aws.config.update({
+  accessKeyId: process.env.AWS_ACCESS_KEY,
+  secretAccessKey: process.env.AWS_SECRET_KEY,
+  region: process.env.REGION,
+});
 
 module.exports = {
   createArrive: (req, res) => {
@@ -108,6 +115,51 @@ module.exports = {
         success: 1,
         message: "Arrive deleted successfully",
       });
+    });
+  },
+
+  getSignedURL: (req, res) => {
+    const s3 = new aws.S3();
+    const fileName = req.query.fileName;
+    const fileType = req.query.fileType;
+    const filePath = `arrive/${fileName}`;
+    const params = {
+      Bucket: process.env.AWS_BUCKET,
+      Key: filePath,
+      Expires: 60,
+      ContentType: fileType,
+      // ContentEncoding: "base64",
+      // ACL: "public-read",
+    };
+
+    s3.getSignedUrl("putObject", params, (err, data) => {
+      if (err) {
+        console.log(`getSignedUrl error: `, err);
+        return res.end();
+      } else {
+        res.write(JSON.stringify(data));
+        res.end();
+      }
+    });
+  },
+  getDownloadUrl: (req, res) => {
+    const s3 = new aws.S3();
+    const fileName = req.query.fileName;
+    const filePath = `arrive/${fileName}`;
+    const params = {
+      Bucket: process.env.AWS_BUCKET,
+      Key: filePath,
+      Expires: 60,
+    };
+
+    s3.getSignedUrl("getObject", params, (err, data) => {
+      if (err) {
+        console.log(`getDownloadSignedUrl error: `, err);
+        return res.end();
+      } else {
+        res.write(JSON.stringify(data));
+        res.end();
+      }
     });
   },
 };

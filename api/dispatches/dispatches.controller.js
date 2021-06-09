@@ -87,17 +87,6 @@ module.exports = {
   },
   updateDispatch: (req, res) => {
     const body = req.body;
-    // const file = req.files.file;
-    // const fileDirectory = process.cwd();
-    // if (file) {
-    //   file.mv(`${fileDirectory}/files/dispatches/${file.name}`, (err) => {
-    //     if (err) {
-    //       console.error(err);
-    //       return res.status(500).send(err);
-    //     }
-    //   });
-    //   body.tailieu = `/files/dispatches/${file.name}`;
-    // }
     updateDispatch(body, (err, results) => {
       if (err) {
         console.log("error update dispatch: " + err);
