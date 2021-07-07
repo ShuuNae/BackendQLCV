@@ -29,7 +29,7 @@ module.exports = {
   },
   getInternals: (callBack) => {
     pool.query(
-      "select maVB, tenvb, sohieu, kyhieu, ngayky, ngayluu, maLVB, maND, noidung, tailieu, tentailieu, sopbnhan, tinhtrangduyet, maBM from congvannoibo ",
+      "select maVB, tenvb, sohieu, kyhieu, ngayky, ngayluu, maLVB, maND, noidung, tailieu, tentailieu, pbnhan, tinhtrangduyet, maBM from congvannoibo ",
       [],
       (error, results, fields) => {
         if (error) {
