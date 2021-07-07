@@ -3,7 +3,7 @@ const pool = require("../../config/database");
 module.exports = {
   create: (data, callBack) => {
     pool.query(
-      "insert into congvannoibo(tenvb, sohieu, kyhieu, ngayky, ngayluu, maLVB, maND, noidung, tailieu, pbnhan, tinhtrangduyet, maBM) value(?,?,?,?,?,?,?,?,?,?,?,?)",
+      "insert into congvannoibo(tenvb, sohieu, kyhieu, ngayky, ngayluu, maLVB, maND, noidung, tailieu, tentailieu, pbnhan, tinhtrangduyet, maBM) value(?,?,?,?,?,?,?,?,?,?,?,?,?)",
       [
         data.tenvb,
         data.sohieu,
@@ -14,6 +14,7 @@ module.exports = {
         data.maND,
         data.noidung,
         data.tailieu,
+        data.tentailieu,
         data.pbnhan,
         data.tinhtrangduyet,
         data.maBM,
@@ -42,6 +43,18 @@ module.exports = {
     pool.query(
       "select maVB, tenvb, sohieu, kyhieu, ngayky, ngayluu, d.maLVB, l.tenlvb, d.maND, n.hoten, noidung, tailieu, pbnhan, tinhtrangduyet, d.maBM, b.tenBM from congvannoibo d inner join nguoidung n on d.maND = n.maND inner join loaivanban l on d.maLVB = l.maLVB inner join bieumau b on d.maBM = b.maBM where maVB =? ",
       [id],
+      (error, results, fields) => {
+        if (error) {
+          return callBack(error);
+        }
+        return callBack(null, results[0]);
+      }
+    );
+  },
+  getInternalCount: (callBack) => {
+    pool.query(
+      "select count(*) from congvannoibo",
+      [],
       (error, results, fields) => {
         if (error) {
           return callBack(error);
