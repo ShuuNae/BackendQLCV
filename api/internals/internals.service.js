@@ -53,7 +53,7 @@ module.exports = {
   },
   getInternalCount: (callBack) => {
     pool.query(
-      "select count(*) from congvannoibo",
+      "select count(*) as tong from congvannoibo",
       [],
       (error, results, fields) => {
         if (error) {
