@@ -39,6 +39,18 @@ module.exports = {
       }
     );
   },
+  getInternalsPagination: (offset, callBack) => {
+    pool.query(
+      "select maVB, tenvb, sohieu, kyhieu, ngayky, ngayluu, maLVB, maND, noidung, tailieu, tentailieu, pbnhan, tinhtrangduyet, maBM from congvannoibo limit 20 offset ? ",
+      [offset],
+      (error, results, fields) => {
+        if (error) {
+          return callBack(error);
+        }
+        return callBack(null, results);
+      }
+    );
+  },
   getInternalByID: (id, callBack) => {
     pool.query(
       "select maVB, tenvb, sohieu, kyhieu, ngayky, ngayluu, d.maLVB, l.tenlvb, d.maND, n.hoten, noidung, tailieu, tentailieu, pbnhan, tinhtrangduyet, d.maBM, b.tenBM from congvannoibo d inner join nguoidung n on d.maND = n.maND inner join loaivanban l on d.maLVB = l.maLVB inner join bieumau b on d.maBM = b.maBM where maVB =? ",

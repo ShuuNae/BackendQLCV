@@ -5,6 +5,7 @@ const {
   updateInternal,
   deleteInternal,
   getInternalCount,
+  getInternalsPagination,
 } = require("./internals.service");
 
 const aws = require("aws-sdk");
@@ -45,6 +46,29 @@ module.exports = {
         return res.json({
           success: 0,
           message: "Record not found",
+        });
+      }
+      return res.json({
+        success: 1,
+        data: result,
+      });
+    });
+  },
+  getInternalsPagination: (req, res) => {
+    const page = req.params.page;
+    const offset = page * 20;
+    getInternalsPagination(offset, (err, result) => {
+      if (err) {
+        console.log("error getInternalsPagination: " + err);
+        return res.json({
+          success: 0,
+          error: err,
+        });
+      }
+      if (!result) {
+        return res.json({
+          success: 0,
+          message: "Record not found getInternalsPagination",
         });
       }
       return res.json({
