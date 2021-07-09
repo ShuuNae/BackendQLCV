@@ -43,6 +43,18 @@ module.exports = {
       }
     );
   },
+  getDispatchesPagination: (offset, callBack) => {
+    pool.query(
+      "select maVB, tenvb, sohieu, kyhieu, ngayky, ngaydi, maLVB, mucdokhan, mucdomat, maND, noidung, tailieu, tentailieu, duongdi, tennv, cqnhan, tinhtrangduyet, maBM from congvandi limit 20 offset ? ",
+      [offset],
+      (error, results, fields) => {
+        if (error) {
+          return callBack(error);
+        }
+        return callBack(null, results);
+      }
+    );
+  },
   getDispatchByID: (id, callBack) => {
     pool.query(
       "select maVB, tenvb, sohieu, kyhieu, ngayky, ngaydi, d.maLVB, l.tenlvb, mucdokhan, mucdomat, d.maND, n.hoten, n.maPB, noidung, tailieu, tentailieu, duongdi, tennv, cqnhan, tinhtrangduyet, d.maBM, b.tenBM from congvandi d inner join nguoidung n on d.maND = n.maND inner join loaivanban l on d.maLVB = l.maLVB inner join bieumau b on d.maBM = b.maBM where maVB =? ",

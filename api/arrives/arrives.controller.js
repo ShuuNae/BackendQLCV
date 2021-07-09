@@ -4,6 +4,7 @@ const {
   getArriveByID,
   updateArrive,
   deleteArrive,
+  getArrivesPagination,
 } = require("./arrives.service");
 const aws = require("aws-sdk");
 
@@ -43,6 +44,29 @@ module.exports = {
         return res.json({
           success: 0,
           message: "Record not found",
+        });
+      }
+      return res.json({
+        success: 1,
+        data: result,
+      });
+    });
+  },
+  getArrivesPagination: (req, res) => {
+    const page = req.query.page;
+    const offset = page * 20;
+    getArrivesPagination(offset, (err, result) => {
+      if (err) {
+        console.log("error getArrivesPagination: " + err);
+        return res.json({
+          success: 0,
+          error: err,
+        });
+      }
+      if (!result) {
+        return res.json({
+          success: 0,
+          message: "Record not found getArrivesPagination",
         });
       }
       return res.json({
