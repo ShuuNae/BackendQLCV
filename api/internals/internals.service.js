@@ -41,7 +41,7 @@ module.exports = {
   },
   getInternalsPagination: (offset, callBack) => {
     pool.query(
-      "select maVB, tenvb, sohieu, kyhieu, ngayky, ngayluu, maLVB, maND, noidung, tailieu, tentailieu, pbnhan, tinhtrangduyet, maBM from congvannoibo limit 20 offset ? ",
+      "select maVB, tenvb, sohieu, kyhieu, ngayky, ngayluu, maLVB, maND, noidung, tailieu, tentailieu, pbnhan, tinhtrangduyet, maBM from congvannoibo limit 5 offset ? ",
       [offset],
       (error, results, fields) => {
         if (error) {
