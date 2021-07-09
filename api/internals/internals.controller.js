@@ -45,7 +45,7 @@ module.exports = {
       if (!result) {
         return res.json({
           success: 0,
-          message: "Record not found",
+          message: "Record not found getInternals",
         });
       }
       return res.json({
@@ -90,7 +90,7 @@ module.exports = {
       if (!result) {
         return res.json({
           success: 0,
-          message: "Record not found",
+          message: "Record not found getInternalByID",
         });
       }
       return res.json({
@@ -157,7 +157,7 @@ module.exports = {
       if (!result) {
         return res.json({
           success: 0,
-          message: "Record not found",
+          message: "Record not found deleteInternal",
         });
       }
       return res.json({
