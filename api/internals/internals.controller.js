@@ -55,7 +55,7 @@ module.exports = {
     });
   },
   getInternalsPagination: (req, res) => {
-    const page = req.params.page;
+    const page = req.query.page;
     const offset = page * 5;
     getInternalsPagination(offset, (err, result) => {
       if (err) {
