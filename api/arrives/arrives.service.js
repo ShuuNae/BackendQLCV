@@ -63,7 +63,7 @@ module.exports = {
     newData =
       data.slice(0, 1) +
       "%" +
-      s.slice(1, data.length - 1) +
+      data.slice(1, data.length - 1) +
       "%" +
       data.slice(data.length - 1);
     data = pool.escape(newData);
