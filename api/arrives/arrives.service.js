@@ -60,12 +60,7 @@ module.exports = {
     );
   },
   searchArrives: (data, offset, callBack) => {
-    newData =
-      data.slice(0, 1) +
-      "%" +
-      data.slice(1, data.length - 1) +
-      "%" +
-      data.slice(data.length - 1);
+    newData = "%"+ data+ "%"
     data = pool.escape(newData);
     pool.query(
       "select maVB, tenvb, sohieu, kyhieu, ngayky, ngayden, maLVB, maCQ, noigui, mucdokhan, mucdomat, maND, noidung, tailieu,tentailieu, duongden, tennvden, hanxuly, noidungxuly, phongbanxuly, tinhtrangduyet, maBM from congvanden where tenvb like ? or sohieu like ? or kyhieu like ? or ngayky like ? or ngayden like ? or noigui like ? or tinhtrangduyet like ? limit 20 offset ? ",
