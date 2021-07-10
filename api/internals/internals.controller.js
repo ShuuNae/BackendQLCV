@@ -6,6 +6,7 @@ const {
   deleteInternal,
   getInternalCount,
   getInternalsPagination,
+  searchInternal,
 } = require("./internals.service");
 
 const aws = require("aws-sdk");
@@ -121,7 +122,30 @@ module.exports = {
       });
     });
   },
-
+  searchInternal: (req, res) => {
+    const searchData = req.query.searchData;
+    const page = req.query.page;
+    const offset = page * 20;
+    searchInternal(searchData, offset, (err, result) => {
+      if (err) {
+        console.log("error searchInternal: " + err);
+        return res.json({
+          success: 0,
+          error: err,
+        });
+      }
+      if (!result) {
+        return res.json({
+          success: 0,
+          message: "Record not found searchInternal",
+        });
+      }
+      return res.json({
+        success: 1,
+        data: result,
+      });
+    });
+  },
   updateInternal: (req, res) => {
     const body = req.body;
     updateInternal(body, (err, results) => {

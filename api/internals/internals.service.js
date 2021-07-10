@@ -75,6 +75,20 @@ module.exports = {
       }
     );
   },
+  searchInternal: (data, offset, callBack) => {
+    newData = "%" + data + "%";
+    data = newData;
+    pool.query(
+      "select maVB, tenvb, sohieu, kyhieu, ngayky, ngayluu, maLVB, maND, noidung, tailieu, tentailieu, pbnhan, tinhtrangduyet, maBM from congvannoibo where tenvb like N? or sohieu like N? or kyhieu like N? or ngayky like N? or ngayluu like N? or tinhtrangduyet like N?",
+      [data, data, data, data, data, data],
+      (error, results, fields) => {
+        if (error) {
+          return callBack(error);
+        }
+        return callBack(null, results);
+      }
+    );
+  },
   updateInternal: (data, callBack) => {
     pool.query(
       "update congvannoibo set tenvb=?, sohieu=?, kyhieu=?, ngayky=?, ngayluu=?, maLVB=?, maND=?, noidung=?, tailieu=?, tentailieu=?, pbnhan=?, tinhtrangduyet=?, maBM=? where maVB=? ",

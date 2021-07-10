@@ -85,7 +85,7 @@ module.exports = {
   },
   getUserByAccount: (account, callBack) => {
     pool.query(
-      "select * from nguoidung where taikhoan=?",
+      "select * from nguoidung where taikhoan=? and trangthailamviec=1",
       [account],
       (error, results, fields) => {
         if (error) {

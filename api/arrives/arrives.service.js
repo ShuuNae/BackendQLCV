@@ -64,8 +64,8 @@ module.exports = {
     // data = pool.escape(newData);
     data = newData;
     pool.query(
-      "select maVB, tenvb, sohieu, kyhieu, ngayky, ngayden, maLVB, maCQ, noigui, mucdokhan, mucdomat, maND, noidung, tailieu,tentailieu, duongden, tennvden, hanxuly, noidungxuly, phongbanxuly, tinhtrangduyet, maBM from congvanden where tenvb like N? or sohieu like N? or kyhieu like N? or ngayky like N? or ngayden like N? or noigui like N? or tinhtrangduyet like N? limit 20 offset ? ",
-      [data, data, data, data, data, data, data, offset],
+      "select maVB, tenvb, sohieu, kyhieu, ngayky, ngayden, maLVB, maCQ, noigui, mucdokhan, mucdomat, maND, noidung, tailieu,tentailieu, duongden, tennvden, hanxuly, noidungxuly, phongbanxuly, tinhtrangduyet, maBM from congvanden where tenvb like N? or sohieu like N? or kyhieu like N? or ngayky like N? or ngayden like N? or noigui like N? or tinhtrangduyet like N?",
+      [data, data, data, data, data, data, data],
       (error, results, fields) => {
         if (error) {
           return callBack(error);

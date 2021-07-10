@@ -7,10 +7,11 @@ const {
   login,
 } = require("./user.controller");
 const router = require("express").Router();
-const { checkTokens } = require("../../auth/token_validation");
+const { checkTokens, checkData } = require("../../auth/token_validation");
 
 router.post("/", checkTokens, createUser);
 router.get("/", checkTokens, getUsers);
+router.get("/checkToken", checkData);
 router.get("/:maND", checkTokens, getUserByID);
 router.patch("/", checkTokens, updateUser);
 router.delete("/", checkTokens, deleteUser);

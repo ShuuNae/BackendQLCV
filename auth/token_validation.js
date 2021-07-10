@@ -24,4 +24,27 @@ module.exports = {
       });
     }
   },
+  checkData: (req, res) => {
+    let token = req.get("authorization");
+    if (token) {
+      //6 words and 1 space, so we choose 7
+      token = token.slice(7);
+      verify(token, process.env.JWT_TOKEN, (err, decoded) => {
+        if (err) {
+          console.log(err);
+          res.json({
+            success: 0,
+            message: "Invalid token",
+          });
+        } else {
+          console.log(decoded);
+        }
+      });
+    } else {
+      res.json({
+        success: 0,
+        message: "Access denied! Unauthorized user",
+      });
+    }
+  },
 };

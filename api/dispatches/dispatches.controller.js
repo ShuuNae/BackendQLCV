@@ -5,6 +5,8 @@ const {
   updateDispatch,
   deleteDispatch,
   getDispatchesPagination,
+  getDispatchCount,
+  searchDispatch,
 } = require("./dispatches.service");
 const aws = require("aws-sdk");
 
@@ -68,6 +70,51 @@ module.exports = {
         return res.json({
           success: 0,
           message: "Record not found getDispatchesPagination",
+        });
+      }
+      return res.json({
+        success: 1,
+        data: result,
+      });
+    });
+  },
+  getDispatchCount: (req, res) => {
+    getDispatchCount((err, result) => {
+      if (err) {
+        console.log("error getDispatchCount: " + err);
+        return res.json({
+          success: 0,
+          error: err,
+        });
+      }
+      if (!result) {
+        return res.json({
+          success: 0,
+          message: "Record not found getDispatchCount",
+        });
+      }
+      return res.json({
+        success: 1,
+        data: result,
+      });
+    });
+  },
+  searchDispatch: (req, res) => {
+    const searchData = req.query.searchData;
+    const page = req.query.page;
+    const offset = page * 20;
+    searchDispatch(searchData, offset, (err, result) => {
+      if (err) {
+        console.log("error searchDispatch: " + err);
+        return res.json({
+          success: 0,
+          error: err,
+        });
+      }
+      if (!result) {
+        return res.json({
+          success: 0,
+          message: "Record not found searchDispatch",
         });
       }
       return res.json({
