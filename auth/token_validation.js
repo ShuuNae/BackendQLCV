@@ -37,7 +37,11 @@ module.exports = {
             message: "Invalid token",
           });
         } else {
-          console.log(decoded);
+          let data = decoded.result;
+          res.json({
+            success: 1,
+            data: data,
+          });
         }
       });
     } else {
