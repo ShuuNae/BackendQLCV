@@ -5,6 +5,8 @@ const {
   updateArrive,
   deleteArrive,
   getArrivesPagination,
+  getArriveCount,
+  searchArrives,
 } = require("./arrives.service");
 const aws = require("aws-sdk");
 
@@ -75,6 +77,30 @@ module.exports = {
       });
     });
   },
+  searchArrives: (req, res) => {
+    const searchData = req.query.searchData;
+    const page = req.query.page;
+    const offset = page * 20;
+    searchArrives(searchData, offset, (err, result) => {
+      if (err) {
+        console.log("error searchArrives: " + err);
+        return res.json({
+          success: 0,
+          error: err,
+        });
+      }
+      if (!result) {
+        return res.json({
+          success: 0,
+          message: "Record not found searchArrives",
+        });
+      }
+      return res.json({
+        success: 1,
+        data: result,
+      });
+    });
+  },
   getArriveByID: (req, res) => {
     const id = req.params.maVB;
     getArriveByID(id, (err, result) => {
@@ -89,6 +115,27 @@ module.exports = {
         return res.json({
           success: 0,
           message: "Record not found",
+        });
+      }
+      return res.json({
+        success: 1,
+        data: result,
+      });
+    });
+  },
+  getArriveCount: (req, res) => {
+    getArriveCount((err, result) => {
+      if (err) {
+        console.log("error getArriveCount: " + err);
+        return res.json({
+          success: 0,
+          error: err,
+        });
+      }
+      if (!result) {
+        return res.json({
+          success: 0,
+          message: "Record not found getArriveCount",
         });
       }
       return res.json({
