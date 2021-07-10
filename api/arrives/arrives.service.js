@@ -68,7 +68,7 @@ module.exports = {
       data.slice(1, data.length - 1) +
       "%" +
       data.slice(data.length - 1);
-    dete = pool.escape(newData);
+    dete = pool.escape(new_cond);
     console.log(dete);
     data = newData;
     pool.query(
