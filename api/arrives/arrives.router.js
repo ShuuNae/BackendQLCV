@@ -10,6 +10,7 @@ const {
   getArrivesPagination,
   getArriveCount,
   searchArrives,
+  approveArrive,
 } = require("./arrives.controller");
 const { checkTokens } = require("../../auth/token_validation");
 
@@ -22,5 +23,6 @@ router.get("/pagination", checkTokens, getArrivesPagination);
 router.get("/search", checkTokens, searchArrives);
 router.get("/:maVB", checkTokens, getArriveByID);
 router.patch("/", checkTokens, updateArrive);
+router.patch("/approve", checkTokens, approveArrive);
 router.delete("/", checkTokens, deleteArrive);
 module.exports = router;

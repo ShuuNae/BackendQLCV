@@ -133,6 +133,19 @@ module.exports = {
       }
     );
   },
+  approveArrive: (data, callBack) => {
+    pool.query(
+      "update congvanden set tinhtrangduyet=? where maVB=?",
+      [data.tinhtrangduyet, data.maVB],
+      (error, results, fields) => {
+        if (error) {
+          return callBack(error);
+        }
+        return callBack(null, results);
+      }
+    );
+  },
+
   deleteArrive: (data, callBack) => {
     pool.query(
       "delete from congvanden where maVB=?",
