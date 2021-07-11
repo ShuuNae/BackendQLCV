@@ -116,6 +116,18 @@ module.exports = {
       }
     );
   },
+  approveInternal: (data, callBack) => {
+    pool.query(
+      "update congvannoibo set tinhtrangduyet=? where maVB=?",
+      [data.tinhtrangduyet, data.maVB],
+      (error, results, fields) => {
+        if (error) {
+          return callBack(error);
+        }
+        return callBack(null, results);
+      }
+    );
+  },
   deleteInternal: (data, callBack) => {
     pool.query(
       "delete from congvannoibo where maVB=?",

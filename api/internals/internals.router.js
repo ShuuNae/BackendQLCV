@@ -10,6 +10,7 @@ const {
   getInternalCount,
   getInternalsPagination,
   searchInternal,
+  approveInternal,
 } = require("./internals.controller");
 const { checkTokens } = require("../../auth/token_validation");
 
@@ -22,5 +23,6 @@ router.get("/pagination", checkTokens, getInternalsPagination);
 router.get("/search", checkTokens, searchInternal);
 router.get("/:maVB", checkTokens, getInternalByID);
 router.patch("/", checkTokens, updateInternal);
+router.patch("/approve", checkTokens, approveInternal);
 router.delete("/", checkTokens, deleteInternal);
 module.exports = router;

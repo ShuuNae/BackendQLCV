@@ -10,6 +10,7 @@ const {
   getDispatchesPagination,
   getDispatchCount,
   searchDispatch,
+  approveDispatch,
 } = require("./dispatches.controller");
 const { checkTokens } = require("../../auth/token_validation");
 
@@ -22,5 +23,6 @@ router.get("/pagination", checkTokens, getDispatchesPagination);
 router.get("/search", checkTokens, searchDispatch);
 router.get("/:maVB", checkTokens, getDispatchByID);
 router.patch("/", checkTokens, updateDispatch);
+router.patch("/approve", checkTokens, approveDispatch);
 router.delete("/", checkTokens, deleteDispatch);
 module.exports = router;

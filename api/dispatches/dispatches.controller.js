@@ -7,6 +7,7 @@ const {
   getDispatchesPagination,
   getDispatchCount,
   searchDispatch,
+  approveDispatch,
 } = require("./dispatches.service");
 const aws = require("aws-sdk");
 
@@ -164,6 +165,28 @@ module.exports = {
       return res.status(200).json({
         success: 1,
         message: "update successfully",
+      });
+    });
+  },
+  approveDispatch: (req, res) => {
+    const body = req.body;
+    approveDispatch(body, (err, results) => {
+      if (err) {
+        console.log("error approveDispatch: " + err);
+        return res.status(500).json({
+          success: 0,
+          message: "Database connection error approveDispatch",
+        });
+      }
+      if (!results) {
+        return res.json({
+          success: 0,
+          message: "Failed to approveDispatch",
+        });
+      }
+      return res.status(200).json({
+        success: 1,
+        message: "approveDispatch successfully",
       });
     });
   },

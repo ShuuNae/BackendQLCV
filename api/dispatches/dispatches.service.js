@@ -124,6 +124,18 @@ module.exports = {
       }
     );
   },
+  approveDispatch: (data, callBack) => {
+    pool.query(
+      "update congvandi set tinhtrangduyet=? where maVB=?",
+      [data.tinhtrangduyet, data.maVB],
+      (error, results, fields) => {
+        if (error) {
+          return callBack(error);
+        }
+        return callBack(null, results);
+      }
+    );
+  },
   deleteDispatch: (data, callBack) => {
     pool.query(
       "delete from congvandi where maVB=?",
