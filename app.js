@@ -14,7 +14,6 @@ const dispatchesRoute = require("./api/dispatches/dispatches.router");
 const arriveRoute = require("./api/arrives/arrives.router");
 const internalRoute = require("./api/internals/internals.router");
 const approveRoute = require("./api/approves/approve.router");
-
 app.use(cors());
 app.use(express.json());
 app.use(fileUpload());
