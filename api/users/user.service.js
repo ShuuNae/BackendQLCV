@@ -85,7 +85,7 @@ module.exports = {
   },
   getUserByAccount: (account, callBack) => {
     pool.query(
-      "select maND, taikhoan, hoten, namsinh, diachi, gioitinh, trangthailamviec, maPB, n.maCV, isAdmin, c.quyenduyet from nguoidung n inner join chucvu c on n.maCV = c.maCV where taikhoan=? and trangthailamviec=1;",
+      "select maND, taikhoan, matkhau, hoten, namsinh, diachi, gioitinh, trangthailamviec, maPB, n.maCV, isAdmin, c.quyenduyet from nguoidung n inner join chucvu c on n.maCV = c.maCV where taikhoan=? and trangthailamviec=1;",
       [account],
       (error, results, fields) => {
         if (error) {
