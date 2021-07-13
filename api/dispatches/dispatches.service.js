@@ -71,8 +71,8 @@ module.exports = {
     newData = "%" + data + "%";
     data = newData;
     pool.query(
-      "select maVB, tenvb, sohieu, kyhieu, ngayky, ngaydi, maLVB, mucdokhan, mucdomat, maND, noidung, tailieu, tentailieu, duongdi, tennv, cqnhan, tinhtrangduyet, maBM from congvandi where tenvb like N? or sohieu like N? or kyhieu like N? or ngayky like N? or ngaydi like N? or noigui like N? or tinhtrangduyet like N? or cqnhan like N?",
-      [data, data, data, data, data, data, data, data],
+      "select maVB, tenvb, sohieu, kyhieu, ngayky, ngaydi, maLVB, mucdokhan, mucdomat, maND, noidung, tailieu, tentailieu, duongdi, tennv, cqnhan, tinhtrangduyet, maBM from congvandi where tenvb like N? or sohieu like N? or kyhieu like N? or ngayky like N? or ngaydi like N? or cqnhan like N? or tinhtrangduyet like N?",
+      [data, data, data, data, data, data, data],
       (error, results, fields) => {
         if (error) {
           return callBack(error);
