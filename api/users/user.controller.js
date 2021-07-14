@@ -164,7 +164,7 @@ module.exports = {
       if (!results) {
         return res.status(400).json({
           success: 0,
-          message: "Invalid user or password",
+          message: "Invalid user or password asd",
         });
       }
       const result = compareSync(body.matkhau, results.matkhau);
