@@ -74,7 +74,7 @@ module.exports = {
   updatePassword: (data, callBack) => {
     pool.query(
       "update nguoidung set matkhau=? where maND=? ",
-      [data.matkhaumoi],
+      [data.matkhaumoi, data.maND],
       (error, results, fields) => {
         if (error) {
           return callBack(error);
