@@ -55,6 +55,44 @@ module.exports = {
       }
     );
   },
+  getDispatchesPaginationByPB: (id, offset, callBack) => {
+    pool.query(
+      "select maVB, tenvb, sohieu, kyhieu, ngayky, ngaydi, maLVB, mucdokhan, mucdomat, c.maND, noidung, tailieu, tentailieu, duongdi, tennv, cqnhan, tinhtrangduyet, maBM from congvandi c inner join nguoidung n on c.maND = n.maND where n.maPB= ? limit 20 offset ?",
+      [id, offset],
+      (error, results, fields) => {
+        if (error) {
+          return callBack(error);
+        }
+        return callBack(null, results);
+      }
+    );
+  },
+  getDispatchCountByPB: (id, callBack) => {
+    pool.query(
+      "select count(*) as tong from congvandi c inner join nguoidung n on c.maND = n.maND where n.maPB = ?",
+      [id],
+      (error, results, fields) => {
+        if (error) {
+          return callBack(error);
+        }
+        return callBack(null, results[0]);
+      }
+    );
+  },
+  searchDispatchById: (id, data, offset, callBack) => {
+    newData = "%" + data + "%";
+    data = newData;
+    pool.query(
+      "select maVB, tenvb, sohieu, kyhieu, ngayky, ngaydi, maLVB, mucdokhan, mucdomat, c.maND, noidung, tailieu, tentailieu, duongdi, tennv, cqnhan, tinhtrangduyet, maBM from congvandi c inner join nguoidung n on c.maND = n.maND where tenvb like N? or sohieu like N? or kyhieu like N? or ngayky like N? or ngaydi like N? or cqnhan like N? or tinhtrangduyet like N? and n.maPB = ?",
+      [data, data, data, data, data, data, data, id],
+      (error, results, fields) => {
+        if (error) {
+          return callBack(error);
+        }
+        return callBack(null, results);
+      }
+    );
+  },
   getDispatchCount: (callBack) => {
     pool.query(
       "select count(*) as tong from congvandi",

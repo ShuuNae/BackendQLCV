@@ -3,8 +3,8 @@ const pool = require("../../config/database");
 module.exports = {
   create: (data, callBack) => {
     pool.query(
-      "insert into chucvu(tencv, ghichu, trangthai) value(?,?,?)",
-      [data.tencv, data.ghichu, data.trangthai],
+      "insert into chucvu(tencv, ghichu, trangthai,quyenduyet) value(?,?,?,?)",
+      [data.tencv, data.ghichu, data.trangthai, data.quyenduyet],
       (error, results, fields) => {
         if (error) {
           return callBack(error);
@@ -15,7 +15,7 @@ module.exports = {
   },
   getPositions: (callBack) => {
     pool.query(
-      "select maCV, tencv, ghichu, trangthai from chucvu ",
+      "select maCV, tencv, ghichu, trangthai, quyenduyet from chucvu ",
       [],
       (error, results, fields) => {
         if (error) {
@@ -27,7 +27,7 @@ module.exports = {
   },
   getPositionByID: (id, callBack) => {
     pool.query(
-      "select maCV, tencv, ghichu, trangthai from chucvu where macv=? ",
+      "select maCV, tencv, ghichu, trangthai, quyenduyet from chucvu where macv=? ",
       [id],
       (error, results, fields) => {
         if (error) {
@@ -39,8 +39,8 @@ module.exports = {
   },
   updatePosition: (data, callBack) => {
     pool.query(
-      "update chucvu set tencv=?, ghichu=?, trangthai=? where maCV=? ",
-      [data.tencv, data.ghichu, data.trangthai, data.maCV],
+      "update chucvu set tencv=?, ghichu=?, trangthai=?, quyenduyet=? where maCV=? ",
+      [data.tencv, data.ghichu, data.trangthai, data.quyenduyet, data.maCV],
       (error, results, fields) => {
         if (error) {
           return callBack(error);
