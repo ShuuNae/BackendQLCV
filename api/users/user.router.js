@@ -14,6 +14,7 @@ router.get("/", checkTokens, getUsers);
 router.get("/checkToken", checkData);
 router.get("/:maND", checkTokens, getUserByID);
 router.patch("/", checkTokens, updateUser);
+router.patch("/changePassword", checkTokens, updatePassword);
 router.delete("/", checkTokens, deleteUser);
 router.post("/login", login);
 

@@ -5,6 +5,7 @@ const {
   updateUser,
   deleteUser,
   getUserByAccount,
+  updatePassword,
 } = require("./user.service");
 const { genSaltSync, hashSync, compareSync } = require("bcrypt");
 const { sign } = require("jsonwebtoken");
@@ -141,6 +142,47 @@ module.exports = {
           success: 1,
           message: "login successfully",
           token: jsonwebtoken,
+        });
+      } else {
+        return res.status(400).json({
+          success: 0,
+          message: "Invalid user or password",
+        });
+      }
+    });
+  },
+  updatePassword: (req, res) => {
+    const body = req.body;
+    getUserByAccount(body.taikhoan, (err, results) => {
+      if (err) {
+        console.log(err);
+        return res.status(500).json({
+          success: 0,
+          error: err,
+        });
+      }
+      if (!results) {
+        return res.status(400).json({
+          success: 0,
+          message: "Invalid user or password",
+        });
+      }
+      const result = compareSync(body.matkhau, results.matkhau);
+      if (result) {
+        const salt = genSaltSync(10);
+        body.matkhaumoi = hashSync(body.matkhaumoi, salt);
+        updatePassword(body, (err, results) => {
+          if (err) {
+            console.log("error create user: " + err);
+            return res.status(500).json({
+              success: 0,
+              message: "Database connection error",
+            });
+          }
+          return res.status(200).json({
+            success: 1,
+            data: results,
+          });
         });
       } else {
         return res.status(400).json({

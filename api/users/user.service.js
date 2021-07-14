@@ -71,6 +71,18 @@ module.exports = {
       }
     );
   },
+  updatePassword: (data, callBack) => {
+    pool.query(
+      "update nguoidung set matkhau=? where maND=? ",
+      [data.matkhaumoi],
+      (error, results, fields) => {
+        if (error) {
+          return callBack(error);
+        }
+        return callBack(null, results);
+      }
+    );
+  },
   deleteUser: (data, callBack) => {
     pool.query(
       "delete from nguoidung where maND=?",
