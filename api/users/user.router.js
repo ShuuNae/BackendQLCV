@@ -5,6 +5,7 @@ const {
   updateUser,
   deleteUser,
   login,
+  updatePassword,
 } = require("./user.controller");
 const router = require("express").Router();
 const { checkTokens, checkData } = require("../../auth/token_validation");
